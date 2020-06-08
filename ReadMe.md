@@ -88,7 +88,7 @@ None    |  Unable to perform compaction as small files are not under same parent
 
 ### Solution3 - Improve Databricks Spark Application
 
-Try below one or more of below to evaluate any performance improvements:
+Try below to evaluate any performance improvements:
 
 #### Compact partitions 
 
