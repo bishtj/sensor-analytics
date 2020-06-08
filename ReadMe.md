@@ -37,7 +37,7 @@ With the given information it seems like one or more of below could be potential
 * At the start Spark driver needs to find list of files to process and therefore makes calls to Azure blob storage to get
  metadata of list of files
  
-* The object path to search contains wildcards /OSI/PI/*/2020/04/16/*_20200428_155139.json’
+* The object path to search contains wildcards /OSI/PI/\*/2020/04/16/\*_20200428_155139.json’
 
 * This could potentially be an issue when hundreds of thousands of directory/files are qualified for scan within specified 
 wildcard path, hence nested calls are made by Spark driver to azure storage to List the metadata for all these files.
