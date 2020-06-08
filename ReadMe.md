@@ -122,7 +122,7 @@ Prefer spark sql vectorized functions in place of UDFs - Catalyst memory optiomi
 where as UDFs would use JVM based memory management
 
 ### Solution4 - Streaming
-Another option would be to introduce streaming architecture may be another option to consider.
+Another option would be to introduce streaming architecture as shown below.
 
 ![Steaming architecture](pictures/Streaming-arch.png)
 
