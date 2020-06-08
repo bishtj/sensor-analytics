@@ -145,6 +145,12 @@ The cluster metrics are useful to identify any resource bottlenecks
 
 Try below one or more of below to evaluate any performance improvements:
 
+#### Compact Large Number of small files
+Large number of small problem are highly undesirable in big data processing due to number of reason, metadata resources
+smaller partitions on processing etc. Hence fix them by using coalesce with overwrite or copy and overwrite. 
+
+> >> df.coalesce(smaller number of partitions) 
+
 #### Number of Shuffle partitions
 Number of shuffle partitions have been hard coded inside spark to 200, you may need to use higher/lower based on your use case
 
