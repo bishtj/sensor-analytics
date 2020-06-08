@@ -141,7 +141,7 @@ The cluster metrics are useful to identify any resource bottlenecks
 ![cluster metrics](pictures/cluster-metrics.png)
 
 
-### Misc - Performance Tuning tips
+### Misc - Performance Tuning cheatsheet
 
 Try below one or more of below to evaluate any performance improvements:
 
