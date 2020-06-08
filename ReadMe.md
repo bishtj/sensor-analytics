@@ -121,8 +121,8 @@ Introduce stage barrier where necessary to avoid recomputation of entire DAG sta
 Prefer spark sql vectorized functions in place of UDFs - Catalyst memory optiomisation present for spark sql vectorized functions
 where as UDFs would use JVM based memory management
 
-### Solution4 - Streaming
-Another option would be to introduce streaming architecture as shown below.
+### Solution4 - Streaming Architecture
+Introduce streaming architecture as shown below will resolve the issue.
 
 ![Steaming architecture](pictures/Streaming-arch.png)
 
