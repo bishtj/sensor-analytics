@@ -12,7 +12,7 @@ An API application makes call every 15 minutes, it makes 40K calls, one for each
   Refer to "Appendix A" section for details. 
 
 ## Problem areas
-The issue needs to be narrowed down to one or more part of the data pipe line.
+The issue needs to be narrowed down to one or more part of the ingestion data pipe line.
  
 * Files metadata to read (list of object paths to read)
 
