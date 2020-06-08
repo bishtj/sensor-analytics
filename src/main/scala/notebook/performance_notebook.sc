@@ -16,7 +16,10 @@ spark.conf.set(
   "someKey")
 
 //val df = spark.read.format("json").load("wasbs://blobcontainer@blobstorageac.blob.core.windows.net/sourcedata/OSI/PI/ADDIT1ZB_SRES_SVR002FLW_C/2020/04/16/*.json")
-val df = spark.read.format("json").load("wasbs://blobcontainer@blobstorageac.blob.core.windows.net/sourcedata/OSI/PI/*/2020/04/16/*C_20200428_155139.json")
+val df = spark
+  .read
+  .format("json")
+  .load("wasbs://blobcontainer@blobstorageac.blob.core.windows.net/sourcedata/OSI/PI/*/2020/04/16/*C_20200428_155139.json")
 
 val explodedDf = df.select(explode(col("Items")).as("items"))
 
