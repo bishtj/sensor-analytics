@@ -54,7 +54,8 @@ Spark driver expects files from a small number of directories as opposed to thou
 #### Large number of small files
 
 Spark default behaviour is to create one partition per file, therefore will create thousands of input partition each with
-much smaller than default block size (128 MB) which is not very optimal
+much smaller than default block size (128 MB) which is not very optimal. It also will increase meta data size repository 
+resources overheads.
 
 ## Proposed Solutions
 
@@ -89,11 +90,60 @@ None    |  Unable to perform compaction as small files are not under same parent
 
 Try below one or more of below to evaluate any performance improvements:
 
+#### Compact partitions 
+
+Spark will create very large number of small partitions that is not efficient, hence use coalesce partitions to lower. 
+
+Add below code refer to apache spark documentation for details.
+ 
+>> df.coalesce(100)
+
 #### Input partitions 
 
 Use number of input partitions based on the max data size of 16 MB, tune the size to higher/lower based on outcome. 
 Add below configuartion in spark application
  > spark.conf("spark.sql.files.maxPartitionBytes", 16777216)
+
+### Solution4 - Streaming Architecture
+Introduce streaming architecture as shown below will resolve the issue.
+
+![Steaming architecture](pictures/Streaming-arch.png)
+
+
+
+Pros      | Cons 
+------------ | -------------
+Dataset processed in real time       | Implementation using new Arch and design 
+None    |  Complexity of streaming application management 
+
+
+### Diagnostic Toolset 
+
+#### Spark Web UI
+Spark Web UI is extremely useful to isolate issue as shown below
+
+ 
+![spark web ui](pictures/spark-job.png)
+
+The job id with timestamp are a good indicator of isolating problem area as per below table
+
+Job Id       | Description  
+------------ | -------------
+   0,1,2     |  Files metadata identification 
+   3         |  Data load from azure
+   4         |  Spark processing
+
+
+#### Metrics
+
+The cluster metrics are useful to identify any resource bottlenecks
+
+![cluster metrics](pictures/cluster-metrics.png)
+
+
+### Misc - Performance Tuning tips
+
+Try below one or more of below to evaluate any performance improvements:
 
 #### Number of Shuffle partitions
 Number of shuffle partitions have been hard coded inside spark to 200, you may need to use higher/lower based on your use case
@@ -121,41 +171,6 @@ Introduce stage barrier where necessary to avoid recomputation of entire DAG sta
 Prefer spark sql vectorized functions in place of UDFs - Catalyst memory optiomisation present for spark sql vectorized functions
 where as UDFs would use JVM based memory management
 
-### Solution4 - Streaming Architecture
-Introduce streaming architecture as shown below will resolve the issue.
-
-![Steaming architecture](pictures/Streaming-arch.png)
-
-
-
-Pros      | Cons 
------------- | -------------
-Dataset processed in real time       | Implementation using new Arch and design 
-None    |  Complexity of streaming application management 
-
-### Diagnostic Toolset 
-
-#### Spark Web UI
-Spark Web UI is extremely useful to isolate issue as shown below
-
- 
-![spark web ui](pictures/spark-job.png)
-
-The job id with timestamp are a good indicator of isolating problem area as per below table
-
-Job Id       | Description  
------------- | -------------
-   0,1,2     |  Files metadata identification 
-   3         |  Data load from azure
-   4         |  Spark processing
-
-
-#### Metrics
-
-The cluster metrics are useful to identify any resource bottlenecks
-
-![cluster metrics](pictures/cluster-metrics.png)
-
 
 
 ### Appendix A
@@ -168,7 +183,7 @@ https://<storageaccount>.blob.core.windows.net/sourcedata/OSI/PI/ADISJFNISAF_SRE
 sourcedata/OSI/PI/<tag name>/<Schedule date (yyyy/MM/dd)>/<tag name><actual datetime>.json
 
 Currently databricks does a wildcard search to find the files and read them in (has sourcedata mounted). i.e.
-‘OSI/PI/*/2020/04/16/*_20200428_155139.json’
+‘OSI/PI/\*/2020/04/16/\*_20200428_155139.json’
 
 As there could be other tags from other pulls in the same container, but the actual datetime on the files will be the same for the 40K
 
