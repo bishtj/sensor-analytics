@@ -26,7 +26,7 @@ The issue needs to be narrowed down to one or more part of the ingestion data pi
  "issue has already been narrowed down to reading files" as suggested in problem statement. 
 
 ## Observations
-With the given information it seems like one or more of below could be responsible.
+With the given information it seems like one or more of below could be potential cause for the issue.
 * Azure storage partition structure 
 
 * Large number of object paths (directories)
