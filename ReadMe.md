@@ -22,7 +22,7 @@ The issue needs to be narrowed down to one or more part of the ingestion data pi
 
 ## Assumptions
 * There is a single api application pulling sensor dataset
-* Due to unavailability of access on actual environment and further information on problem assumption has been made
+* Due to unavailability of access on actual environment and further information on problem an assumption has been made
  "issue has already been narrowed down to reading files" as suggested in problem statement. 
 
 ## Observations
