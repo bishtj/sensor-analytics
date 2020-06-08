@@ -98,7 +98,7 @@ Add below code refer to apache spark documentation for details.
  
 >> df.coalesce(100)
 
-#### Input partitions 
+#### Input partitions - size based 
 
 Use number of input partitions based on the max data size of 16 MB, tune the size to higher/lower based on outcome. 
 Add below configuartion in spark application
