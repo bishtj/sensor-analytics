@@ -1,5 +1,5 @@
 # Sensor Analytics 
-This is a sample project to troubleshoot performance degradation on processing of frequent sensor data.
+This is a sample project to troubleshoot performance degradation on processing of high frequency sensor data.
 
 ## Scope
 The current scope is limited to discuss possible solutions and not implementation.
